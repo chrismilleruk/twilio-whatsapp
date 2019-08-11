@@ -9,9 +9,12 @@ const pino = require('pino');
 const expressPino = require('express-pino-logger');
 
 // Twilio messaging
-const accountSid = process.env.SID;
-const authToken = process.env.KEY;
-const Twilio = require('twilio')(accountSid, authToken);
+const twilioAccountSid = process.env.SID;
+const twilioAuthToken = process.env.KEY;
+const twilioFrom = process.env.FROM_NUMBER;
+const twilioTo = process.env.TO_NUMBER;
+
+const Twilio = require('twilio')(twilioAccountSid, twilioAuthToken);
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
   // Message Formatting: 
@@ -24,6 +27,12 @@ const MessagingResponse = require('twilio').twiml.MessagingResponse;
   // fire.burningSince = worldTurning.StartDate;
   // \`\`\`
   // `
+
+  // Permitted messages in sandbox mode
+  //
+  // Your {{1}} code is {{2}}
+  // Your appointment is coming up on {{1}} at {{2}}
+  // Your {{1}} order of {{2}} has shipped and should be delivered on {{3}}. Details: {{4}}
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -93,5 +102,20 @@ app.post('/status', (req, res) => {
 
 var listener = app.listen(process.env.PORT, function() {
   logger.info('Your app is listening on port ' + listener.address().port);
+
+  sendAppStartMessage();
 });
 
+
+function sendAppStartMessage() {
+  // Your {{1}} code is {{2}}
+  const message = "Your status code is App Started. Reply to activate the chatbot.";
+
+  Twilio.messages
+        .create({
+          from: twilioFrom,
+          body: message,
+          to: twilioTo
+        })
+        .then(message => console.log(message.sid));
+}

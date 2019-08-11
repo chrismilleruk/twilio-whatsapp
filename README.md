@@ -19,4 +19,6 @@ https://dev.to/jajoosam/build-a-whatsapp-bot-fast--2hdc
 ```
 SID=<Your Twilio SID>
 KEY=<Your Twilio AUTH KEY>
+FROM_NUMBER=whatsapp:<Twilio WhatsApp number>
+TO_NUMBER=whatsapp:<Your WhatsApp number>
 ```
