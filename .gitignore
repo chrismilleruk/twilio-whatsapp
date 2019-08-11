@@ -1,3 +1,4 @@
 .ssh
 .env
 node_modules
+.gitconfig

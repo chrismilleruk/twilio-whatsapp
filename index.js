@@ -61,12 +61,12 @@ app.post('/message', (req, res) => {
 
   // Echo message back to WhatsApp user.
   const response = new MessagingResponse();
-  response.message(`*Received*
+  response.message(`*Received* ✅
   Your message: _${req.body.Body}_
 `);
 
   res.writeHead(200, {'Content-Type': 'text/xml'});
-  res.end(twiml.toString());
+  res.end(response.toString());
 });
 
 
