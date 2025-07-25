@@ -14,7 +14,7 @@
     "express-pino-logger": "^4.0.0",
     "pino": "^5.13.2",
     "express": "^4.16.3",
-    "twilio": "^4.6.0",
+    "twilio": "^4.7.0",
     "request": "^2.88.0"
   },
   "engines": {
